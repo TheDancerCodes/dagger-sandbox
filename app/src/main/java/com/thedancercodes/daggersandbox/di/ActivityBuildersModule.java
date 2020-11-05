@@ -15,9 +15,4 @@ public abstract class ActivityBuildersModule {
     @ContributesAndroidInjector
     abstract AuthActivity contributeAuthActivity();
 
-    @Provides
-    static String someString(){
-        return "this is a test string";
-    }
-
 }

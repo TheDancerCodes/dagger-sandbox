@@ -16,11 +16,15 @@ public class AuthActivity extends DaggerAppCompatActivity {
     @Inject
     String cndhdfh;
 
+    @Inject
+    boolean isAppNull;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
 
         Log.d(TAG, "onCreate: " + cndhdfh);
+        Log.d(TAG, "onCreate: is app null? " +  isAppNull);
     }
 }
