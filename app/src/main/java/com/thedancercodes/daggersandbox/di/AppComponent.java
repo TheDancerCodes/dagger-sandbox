@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.thedancercodes.daggersandbox.BaseApplication;
 
+import javax.inject.Singleton;
+
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjector;
@@ -18,6 +20,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
  * Here we inject BaseApplication into AppComponent & BaseApplication will be a client of the
  * AppComponent service.
  */
+@Singleton
 @Component(
         modules = {
                 AndroidSupportInjectionModule.class,
