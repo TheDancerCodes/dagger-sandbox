@@ -10,6 +10,8 @@ import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 import com.thedancercodes.daggersandbox.R;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -24,6 +26,7 @@ import dagger.Provides;
 @Module
 public class AppModule {
 
+    @Singleton
     @Provides
     static RequestOptions provideRequestOptions() {
         return RequestOptions
@@ -33,6 +36,7 @@ public class AppModule {
 
     // This dependency provides the Glide instance.
     // It depends on the RequestOptions dependency above.
+    @Singleton
     @Provides
     static RequestManager provideGlideInstance(Application application,
                                                RequestOptions requestOptions) {
@@ -40,6 +44,7 @@ public class AppModule {
                 .setDefaultRequestOptions(requestOptions);
     }
 
+    @Singleton
     @Provides
     static Drawable provideAppDrawable(Application application) {
         return ContextCompat.getDrawable(application, R.drawable.logo);
