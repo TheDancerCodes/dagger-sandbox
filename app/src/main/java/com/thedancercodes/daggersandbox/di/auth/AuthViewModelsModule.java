@@ -1,7 +1,8 @@
-package com.thedancercodes.daggersandbox.di;
+package com.thedancercodes.daggersandbox.di.auth;
 
 import androidx.lifecycle.ViewModel;
 
+import com.thedancercodes.daggersandbox.di.ViewModelKey;
 import com.thedancercodes.daggersandbox.ui.auth.AuthViewModel;
 
 import dagger.Binds;
