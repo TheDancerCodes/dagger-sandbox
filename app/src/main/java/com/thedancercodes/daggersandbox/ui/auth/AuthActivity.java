@@ -68,7 +68,7 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
     // from the UI.
     // Any changes made to the authUser LiveData object will be updated to the UI.
     private void subscribeObservers() {
-        viewModel.observeUser().observe(this, new Observer<AuthResource<User>>() {
+        viewModel.observeAuthState().observe(this, new Observer<AuthResource<User>>() {
 
             // When we set a value in the AuthViewModel, the OnChanged method below will trigger
             // if the status changes and we can update the UI.

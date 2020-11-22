@@ -8,6 +8,7 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
+import com.thedancercodes.daggersandbox.SessionManager;
 import com.thedancercodes.daggersandbox.models.User;
 import com.thedancercodes.daggersandbox.network.auth.AuthApi;
 
@@ -21,24 +22,28 @@ public class AuthViewModel extends ViewModel {
 
     private static final String TAG = "AuthViewModel";
 
+    // Inject
     private final AuthApi authApi;
-
-    private MediatorLiveData<AuthResource<User>> authUser = new MediatorLiveData<>();
+    private SessionManager sessionManager;
 
     @Inject
-    public AuthViewModel(AuthApi authApi) {
+    public AuthViewModel(AuthApi authApi, SessionManager sessionManager) {
         this.authApi = authApi;
+        this.sessionManager = sessionManager;
         Log.d(TAG, "AuthViewModel: ViewModel is working...");
+    }
+
+    public void authenticateWithId(int userId) {
+
+        Log.d(TAG, "authenticateWithId: attempting to login.");
+
+        sessionManager.authenticateWithId(queryUserId(userId));
     }
 
     // Initiate call to the API. The source is the API call from the Flowable object.
     // Here we are converting the Flowable to the LiveData object.
-    public void authenticateWithId(int userId) {
-
-        // Set the Loading Status
-        authUser.setValue(AuthResource.loading((User)null));
-
-        final LiveData<AuthResource<User>> source = LiveDataReactiveStreams.fromPublisher(
+    private LiveData<AuthResource<User>> queryUserId(int userId) {
+        return LiveDataReactiveStreams.fromPublisher(
                 authApi.getUser(userId)
 
                         // Called if error occurs (instead of calling onError)
@@ -69,23 +74,11 @@ public class AuthViewModel extends ViewModel {
                             }
                         })
                         .subscribeOn(Schedulers.io()));
-
-        // Setting source (above) to authUser (below) using MediatorLiveData
-        authUser.addSource(source, new Observer<AuthResource<User>>() {
-            @Override
-            public void onChanged(AuthResource<User> user) {
-                // Update any observes using setValue()
-                authUser.setValue(user);
-
-                // Remove source since we no longer need to listen to it.
-                authUser.removeSource(source);
-            }
-        });
     }
 
     // LiveData object of required data type (User) that we are returning to the UI
-    public LiveData<AuthResource<User>> observeUser() {
-        return authUser;
+    public LiveData<AuthResource<User>> observeAuthState() {
+        return sessionManager.getAuthUser();
     }
 
 }
