@@ -3,6 +3,7 @@ package com.thedancercodes.daggersandbox.di;
 import android.app.Application;
 
 import com.thedancercodes.daggersandbox.BaseApplication;
+import com.thedancercodes.daggersandbox.SessionManager;
 
 import javax.inject.Singleton;
 
@@ -30,6 +31,10 @@ import dagger.android.support.AndroidSupportInjectionModule;
         }
 )
 public interface AppComponent extends AndroidInjector<BaseApplication> {
+
+    // Makes SessionManager accessible from the AppComponent & is kept alive as long as the
+    // application is alive.
+    SessionManager sessionManager();
 
     /*
      * Overriding the component builder method.
