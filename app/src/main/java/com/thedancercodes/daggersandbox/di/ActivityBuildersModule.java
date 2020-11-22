@@ -2,6 +2,7 @@ package com.thedancercodes.daggersandbox.di;
 
 import com.thedancercodes.daggersandbox.di.auth.AuthModule;
 import com.thedancercodes.daggersandbox.di.auth.AuthViewModelsModule;
+import com.thedancercodes.daggersandbox.di.main.MainFragmentBuildersModule;
 import com.thedancercodes.daggersandbox.ui.auth.AuthActivity;
 import com.thedancercodes.daggersandbox.ui.main.MainActivity;
 
@@ -25,7 +26,9 @@ public abstract class ActivityBuildersModule {
             modules = {AuthViewModelsModule.class, AuthModule.class})
     abstract AuthActivity contributeAuthActivity();
 
-    @ContributesAndroidInjector()
+    @ContributesAndroidInjector(
+            modules = {MainFragmentBuildersModule.class}
+    )
     abstract MainActivity contributeMainActivity();
 
 }
