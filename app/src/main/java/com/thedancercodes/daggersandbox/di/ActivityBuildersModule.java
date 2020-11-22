@@ -9,9 +9,10 @@ import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
 /**
- * ActivityBuildersModule is representative of the AuthComponent (AuthActivity SubComponent).
+ * ActivityBuildersModule is representative of the AuthComponent (AuthActivitySubComponent) and
+ * MainComponent (MainActivitySubComponent)
  *
- * Contains the potential clients that you can inject into - AuthActivity.
+ * Contains the potential clients that you can inject into - AuthActivity, MainActivity.
  *
  * NOTE: Both AuthViewModelsModule & AuthModule exist inside the AuthActivity SubComponent.
  *
