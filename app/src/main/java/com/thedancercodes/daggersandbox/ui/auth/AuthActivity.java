@@ -3,6 +3,7 @@ package com.thedancercodes.daggersandbox.ui.auth;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.bumptech.glide.RequestManager;
 import com.thedancercodes.daggersandbox.R;
 import com.thedancercodes.daggersandbox.models.User;
+import com.thedancercodes.daggersandbox.ui.main.MainActivity;
 import com.thedancercodes.daggersandbox.viewmodels.ViewModelProviderFactory;
 
 import javax.inject.Inject;
@@ -89,6 +91,7 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
                             showProgressBar(false);
                             Log.d(TAG, "onChanged: LOGIN SUCCESS: "
                                     + userAuthResource.data.getEmail());
+                            onLoginSuccess();
                             break;
                         }
 
@@ -117,6 +120,13 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
         } else {
             progressBar.setVisibility(View.GONE);
         }
+    }
+
+    // Method to redirect to MainActivity when a user is authenticated
+    private void onLoginSuccess() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     // Method to set a logo
