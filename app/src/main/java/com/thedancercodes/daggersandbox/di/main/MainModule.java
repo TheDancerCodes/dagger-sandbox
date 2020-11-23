@@ -1,6 +1,7 @@
 package com.thedancercodes.daggersandbox.di.main;
 
 import com.thedancercodes.daggersandbox.network.main.MainApi;
+import com.thedancercodes.daggersandbox.ui.main.posts.PostRecyclerAdapter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -16,6 +17,14 @@ import retrofit2.Retrofit;
  */
 @Module
 public class MainModule {
+
+    /*
+     * Allow us to inject the adapter as a dependency.
+     */
+    @Provides
+    static PostRecyclerAdapter provideAdapter() {
+        return new PostRecyclerAdapter();
+    }
 
     @Provides
     static MainApi provideMainApi(Retrofit retrofit) {
