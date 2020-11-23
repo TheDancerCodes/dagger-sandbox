@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 
 import com.thedancercodes.daggersandbox.BaseActivity;
 import com.thedancercodes.daggersandbox.R;
+import com.thedancercodes.daggersandbox.ui.main.posts.PostsFragment;
 import com.thedancercodes.daggersandbox.ui.main.profile.ProfileFragment;
 
 public class MainActivity extends BaseActivity {
@@ -27,7 +28,7 @@ public class MainActivity extends BaseActivity {
 
     private void testFragment() {
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main_container, new ProfileFragment())
+                .replace(R.id.main_container, new PostsFragment())
                 .commit();
     }
 
