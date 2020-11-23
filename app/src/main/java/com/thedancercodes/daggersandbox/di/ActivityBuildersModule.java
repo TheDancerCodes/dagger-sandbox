@@ -3,6 +3,7 @@ package com.thedancercodes.daggersandbox.di;
 import com.thedancercodes.daggersandbox.di.auth.AuthModule;
 import com.thedancercodes.daggersandbox.di.auth.AuthViewModelsModule;
 import com.thedancercodes.daggersandbox.di.main.MainFragmentBuildersModule;
+import com.thedancercodes.daggersandbox.di.main.MainModule;
 import com.thedancercodes.daggersandbox.di.main.MainViewModelsModule;
 import com.thedancercodes.daggersandbox.ui.auth.AuthActivity;
 import com.thedancercodes.daggersandbox.ui.main.MainActivity;
@@ -28,7 +29,8 @@ public abstract class ActivityBuildersModule {
     abstract AuthActivity contributeAuthActivity();
 
     @ContributesAndroidInjector(
-            modules = {MainFragmentBuildersModule.class, MainViewModelsModule.class}
+            modules = {MainFragmentBuildersModule.class,
+                    MainViewModelsModule.class, MainModule.class}
     )
     abstract MainActivity contributeMainActivity();
 
