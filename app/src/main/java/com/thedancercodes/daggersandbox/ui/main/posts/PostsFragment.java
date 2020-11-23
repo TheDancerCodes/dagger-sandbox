@@ -10,11 +10,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.thedancercodes.daggersandbox.R;
 import com.thedancercodes.daggersandbox.models.Post;
 import com.thedancercodes.daggersandbox.ui.main.Resource;
+import com.thedancercodes.daggersandbox.util.VerticalSpaceItemDecoration;
 import com.thedancercodes.daggersandbox.viewmodels.ViewModelProviderFactory;
 
 import java.util.List;
@@ -29,6 +31,9 @@ public class PostsFragment extends DaggerFragment {
 
     private PostsViewModel viewModel;
     private RecyclerView recyclerView;
+
+    @Inject
+    PostRecyclerAdapter adapter;
 
     @Inject
     ViewModelProviderFactory providerFactory;
@@ -46,6 +51,8 @@ public class PostsFragment extends DaggerFragment {
         // Instantiate ViewModel
         viewModel = ViewModelProviders.of(this, providerFactory).get(PostsViewModel.class);
 
+        initRecyclerView();
+
         subscribeObservers();
     }
 
@@ -55,10 +62,37 @@ public class PostsFragment extends DaggerFragment {
             @Override
             public void onChanged(Resource<List<Post>> listResource) {
                 if (listResource != null) {
-                    Log.d(TAG, "onChanged: " + listResource.data);
+
+                    switch (listResource.status) {
+
+                        case LOADING: {
+                            Log.d(TAG, "onChanged: LOADING...");
+                            break;
+                        }
+
+                        // Get data and set it to the RecyclerView
+                        case SUCCESS: {
+                            Log.d(TAG, "onChanged: Got posts...");
+                            adapter.setPosts(listResource.data);
+                            break;
+                        }
+
+                        case ERROR: {
+                            Log.e(TAG, "onChanged: ERROR..." + listResource.message);
+                            break;
+                        }
+                    }
 
                 }
             }
         });
+    }
+
+    // Set up RecyclerView
+    private void initRecyclerView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        VerticalSpaceItemDecoration itemDecoration = new VerticalSpaceItemDecoration(15);
+        recyclerView.addItemDecoration(itemDecoration);
+        recyclerView.setAdapter(adapter);
     }
 }
