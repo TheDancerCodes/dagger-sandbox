@@ -1,17 +1,23 @@
 package com.thedancercodes.daggersandbox.ui.main.posts;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.thedancercodes.daggersandbox.R;
+import com.thedancercodes.daggersandbox.models.Post;
+import com.thedancercodes.daggersandbox.ui.main.Resource;
 import com.thedancercodes.daggersandbox.viewmodels.ViewModelProviderFactory;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -39,5 +45,20 @@ public class PostsFragment extends DaggerFragment {
 
         // Instantiate ViewModel
         viewModel = ViewModelProviders.of(this, providerFactory).get(PostsViewModel.class);
+
+        subscribeObservers();
+    }
+
+    private void subscribeObservers() {
+        viewModel.observePosts().removeObservers(getViewLifecycleOwner());
+        viewModel.observePosts().observe(getViewLifecycleOwner(), new Observer<Resource<List<Post>>>() {
+            @Override
+            public void onChanged(Resource<List<Post>> listResource) {
+                if (listResource != null) {
+                    Log.d(TAG, "onChanged: " + listResource.data);
+
+                }
+            }
+        });
     }
 }
