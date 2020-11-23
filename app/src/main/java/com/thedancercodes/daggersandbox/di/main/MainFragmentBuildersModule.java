@@ -1,5 +1,6 @@
 package com.thedancercodes.daggersandbox.di.main;
 
+import com.thedancercodes.daggersandbox.ui.main.posts.PostsFragment;
 import com.thedancercodes.daggersandbox.ui.main.profile.ProfileFragment;
 
 import dagger.Module;
@@ -13,5 +14,8 @@ public abstract class MainFragmentBuildersModule {
 
     @ContributesAndroidInjector
     abstract ProfileFragment contributeProfileFragment();
+
+    @ContributesAndroidInjector
+    abstract PostsFragment contributePostsFragment();
 
 }
