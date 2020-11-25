@@ -9,8 +9,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 import com.thedancercodes.daggersandbox.R;
+import com.thedancercodes.daggersandbox.models.User;
 import com.thedancercodes.daggersandbox.util.Constants;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -62,6 +64,13 @@ public class AppModule {
     @Provides
     static Drawable provideAppDrawable(Application application) {
         return ContextCompat.getDrawable(application, R.drawable.logo);
+    }
+
+    @Singleton
+    @Provides
+    @Named("app_user")
+    static User someUser() {
+        return new User();
     }
 
 }
