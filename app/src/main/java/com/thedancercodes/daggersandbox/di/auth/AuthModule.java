@@ -1,6 +1,10 @@
 package com.thedancercodes.daggersandbox.di.auth;
 
+import com.thedancercodes.daggersandbox.models.User;
 import com.thedancercodes.daggersandbox.network.auth.AuthApi;
+
+import javax.inject.Named;
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -14,6 +18,13 @@ import retrofit2.Retrofit;
  */
 @Module
 public class AuthModule {
+
+    @AuthScope
+    @Provides
+    @Named("auth_user")
+    static User someUser() {
+        return new User();
+    }
 
     @AuthScope
     @Provides

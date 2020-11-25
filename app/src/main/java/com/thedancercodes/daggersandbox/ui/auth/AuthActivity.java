@@ -21,6 +21,7 @@ import com.thedancercodes.daggersandbox.ui.main.MainActivity;
 import com.thedancercodes.daggersandbox.viewmodels.ViewModelProviderFactory;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import dagger.android.support.DaggerAppCompatActivity;
 
@@ -44,6 +45,14 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
     @Inject
     RequestManager requestManager; // The Glide Instance
 
+    @Inject
+    @Named("app_user")
+    User userNumber1;
+
+    @Inject
+    @Named("auth_user")
+    User userNumber2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +73,9 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
         setLogo();
 
         subscribeObservers();
+
+        Log.d(TAG, "onCreate: app_user ~> " + userNumber1); // From @Singleton scope
+        Log.d(TAG, "onCreate: auth_user ~> " + userNumber2); // From @AuthScope scope
     }
 
     // This method helps us observe the MediatorLiveData object (authUser) in AuthViewModel
