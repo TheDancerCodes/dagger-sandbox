@@ -21,11 +21,13 @@ public class MainModule {
     /*
      * Allow us to inject the adapter as a dependency.
      */
+    @MainScope
     @Provides
     static PostRecyclerAdapter provideAdapter() {
         return new PostRecyclerAdapter();
     }
 
+    @MainScope
     @Provides
     static MainApi provideMainApi(Retrofit retrofit) {
         return retrofit.create(MainApi.class);
